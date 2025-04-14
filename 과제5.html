@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>5강</title>
+  <style>
+     @import url('https://fonts.googleapis.com/css2?family=Gamja+Flower&family=Hahmlet:wght@100..900&display=swap');
+    body {
+      margin: 0;
+      background: url("h5.jpg");
+      background-size: cover;
+
+    }
+
+    .box {
+      position: absolute;
+      width: 10vw;
+      height: 10vh;
+      transition: 0.5s ease-in-out;
+      line-height: 10vh;
+      text-align: center;
+      font-size: 17px;
+      font-family: "Gamja Flower",Helvetica, sans-serif;
+    }
+
+    .box:hover {
+      transform: scale(0.4) rotate(90deg);
+      background-color: rgba(110, 110, 110, 0.5)!important;
+    }
+
+
+  </style>
+</head>
+<body>
+
+<script>
+  alert("박스 뒤 동물의 이름이 적힌 박스를 '모두' 클릭해보세요.(힌트: 3글자)");
+
+  let animals = ["햄스터", "다람쥐", "카피바라", "기니피그", "두더지", "친칠라", "뉴트리아", "비버"];
+  let texts = "";
+  let totalH = 0;
+  let clickedH = 0;
+ 
+  for (let y = 0; y < 10; y++) {
+    for (let x = 0; x < 10; x++) {
+      let left = x * 10;
+      let top = y * 10;
+      let h = animals[Math.floor(Math.random() * animals.length)];
+      if (h === "햄스터") totalH++;
+
+      let r = Math.floor(Math.random() * 100 +180);
+      let g = Math.floor(Math.random() * 100 +180);
+      let b = Math.floor(Math.random() * 100 +200);
+
+      texts += `<div class="box" onclick="check(this)"
+        onmouseover="hoverin(this)" onmouseout="hoverout(this)"
+        style="left:${left}vw; top:${top}vh; background-color:rgb(${r},${g},${b});">
+        ${h}
+      </div>`;
+    
+    }
+  }
+
+  document.write(texts);
+
+  function check(el){
+    if (el.innerText==="햄스터"){
+      if (!el.clicked){
+        el.clicked = true;
+        el.style.transform = "rotate(90deg) scale(0.7)";
+        clickedH++;
+
+        if(clickedH === totalH) {
+          alert("bingo!");
+          document.querySelectorAll(".box").forEach(box => {
+            box.style.display = "none"; 
+          });
+        }
+      }
+    } else{
+      alert("땡땡땡!");
+    }
+  }
+
+</script>
+
+</body>
+</html>
